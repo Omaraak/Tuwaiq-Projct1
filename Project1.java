@@ -155,9 +155,6 @@ public class Project1 {
                     break;
                 }
             } while (true);
-
-            System.out.println();
-
         }catch (InputMismatchException e) {
             System.out.println("Wrong input value");
         }
