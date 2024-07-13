@@ -3,6 +3,7 @@ import java.util.*;
 public class Project1 {
 
     static String[][] bord = {{"1","2","3"},{"4","5","6"},{"7","8","9"}};
+    static ArrayList<Integer> invalid_random_val = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -11,6 +12,7 @@ public class Project1 {
         ArrayList<Integer> invalid_random_val = new ArrayList<>();
 
         System.out.println("Welcoming\nto the game");
+
 
         try {
             System.out.println("Press 1 for one player\nPress 2 for two players");
@@ -23,18 +25,21 @@ public class Project1 {
                 //check if player one win
                 if (p1_score > p2_score && p1_score + p2_score == number_of_round){
                     System.out.println("player one win");
+                    invalid_random_val.clear();
                     break;
                 }
 
                 //check if player two win
                 if (p2_score > p1_score && p1_score + p2_score == number_of_round){
                     System.out.println("\nplayer two win");
+                    invalid_random_val.clear();
                     break;
                 }
 
                 //check for drw
                 if (p1_score == p2_score && p1_score + p2_score == number_of_round){
                     System.out.println("\nDrw");
+                    invalid_random_val.clear();
                     break;
                 }
 
@@ -103,13 +108,11 @@ public class Project1 {
                     }
                     //game mode one
                     else {
-                        int stop_condition = 0;
+                        //find a unique valid tile
                         do {
                             player2_tile = random.nextInt(1, 9);
-                            //if the value is not present in the
-                            if (!invalid_random_val.contains(player2_tile))
-                                stop_condition++;
-                        } while (stop_condition == 0);
+                        } while (invalid_random_val.contains(player2_tile));
+
                         invalid_random_val.add(player2_tile);
                         System.out.println("Chose a tile: "+player2_tile);
                     }
@@ -185,7 +188,6 @@ public class Project1 {
             }
             System.out.println();
         }
-//        System.out.println();
     }
 
     public static void play(int row, int colum, String player){
@@ -260,5 +262,6 @@ public class Project1 {
                 counter++;
             }
         }
+        invalid_random_val.clear();
     }
 }
